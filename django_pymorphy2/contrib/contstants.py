@@ -42,3 +42,5 @@ RU_CASES = {
     'пр1': 'loc1',
     'пр2': 'loc2',
 }
+
+DONT_INFLECT = ('COMP', 'ADVB', 'PRED', 'PREP', 'CONJ', 'PRCL', 'INTJ')
