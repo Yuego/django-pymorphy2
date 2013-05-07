@@ -22,10 +22,9 @@ setup(
 
     license='MIT license',
     packages=['django_pymorphy2',
-                'django_pymorphy2.contrib',
-                'django_pymorphy2.shortcuts',
-                'django_pymorphy2.templatetags',
-                ],
+              'django_pymorphy2.shortcuts',
+              'django_pymorphy2.templatetags',
+              ],
 
     classifiers=[
         'Development Status :: 1 - Alpha',
