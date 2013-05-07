@@ -1,8 +1,9 @@
 #coding: utf-8
 from __future__ import unicode_literals, absolute_import
 
+from pymorphy2.shapes import restore_word_case
+
 from django_pymorphy2.config import morph
-from django_pymorphy2.shortcuts.word_case import restore_word_case
 from django_pymorphy2.constants import DONT_INFLECT_FORMS
 from .phrase import process_phrase
 

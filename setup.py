@@ -18,14 +18,20 @@ setup(
     download_url='https://github.com/Yuego/django-pymorphy2/archive/%s.tar.gz' % __version__,
 
     description='Django and PyMorphy2 integration',
-    long_description=open('README.rst').read(),
+    long_description=open('README.rst').read() + open('AUTHORS.rst').read(),
 
     license='MIT license',
-    packages=['django_pymorphy2',
-              'django_pymorphy2.shortcuts',
-              'django_pymorphy2.templatetags',
-              ],
-
+    requires=[
+        'django (>=1.3)',
+        'pymorphy2 (>=0.3.4)',
+        'pymorphy2_dicts',
+        'six',
+    ],
+    packages=[
+        'django_pymorphy2',
+        'django_pymorphy2.shortcuts',
+        'django_pymorphy2.templatetags',
+    ],
     classifiers=[
         'Development Status :: 1 - Alpha',
         'Intended Audience :: Developers',

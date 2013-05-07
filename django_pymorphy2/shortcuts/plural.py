@@ -2,8 +2,10 @@
 from __future__ import unicode_literals, absolute_import
 
 import six
+
+from pymorphy2.shapes import restore_word_case
+
 from django_pymorphy2.config import morph
-from django_pymorphy2.shortcuts.word_case import restore_word_case
 from .phrase import process_phrase
 
 __all__ = ['pluralize_word', 'pluralize_phrase']
