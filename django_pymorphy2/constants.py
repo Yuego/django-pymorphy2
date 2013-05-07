@@ -43,4 +43,21 @@ RU_CASES = {
     'пр2': 'loc2',
 }
 
-DONT_INFLECT = ('COMP', 'ADVB', 'PRED', 'PREP', 'CONJ', 'PRCL', 'INTJ')
+RU_GENDERS = {
+    'мр': 'masc',
+    'жр': 'femn',
+    'ср': 'neut',
+}
+INFLECT_FORMS = dict()
+map(INFLECT_FORMS.update, (RU_NUMBERS, RU_CASES, RU_GENDERS))
+
+DONT_INFLECT_FORMS = ('COMP', 'ADVB', 'PRED', 'PREP', 'CONJ', 'PRCL', 'INTJ')
+
+RU_FIO = {
+    'имя': 'Name',
+    'фам': 'Surn',
+    'отч': 'Patr',
+}
+
+SPECIFYING_FORMS = dict()
+map(SPECIFYING_FORMS.update, (RU_FIO,))

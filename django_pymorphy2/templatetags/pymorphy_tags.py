@@ -12,32 +12,34 @@ from django import template
 from django.utils.text import force_unicode
 
 from django_pymorphy2.config import MARKER_OPEN, MARKER_CLOSE
+from django_pymorphy2.shortcuts.forms import get_forms_tuple
 from django_pymorphy2.shortcuts.inflect import inflect_phrase
+from django_pymorphy2.shortcuts.plural import pluralize_phrase
 
 register = template.Library()
 
 markup_re = re.compile('(%s.+?%s)' % (MARKER_OPEN, MARKER_CLOSE), re.U)
 
 
-def _process_marked_phrase(phrase, forms, *args, **kwargs):
+def _process_marked_phrase(phrase, func, *args, **kwargs):
     """
     Обработать фразу. В фразе обрабатываются только куски, заключенные
     в двойные квадратные скобки (например, "[[лошадь]] Пржевальского").
     """
     def process(m):
-        return inflect_phrase(m.group(1)[2:-2], forms)
+        return func(m.group(1)[2:-2], *args, **kwargs)
 
     return re.sub(markup_re, process, phrase)
 
 
-def _process_unmarked_phrase(phrase, forms, *args, **kwargs):
+def _process_unmarked_phrase(phrase, func, *args, **kwargs):
     """
     Обработать фразу. В фразе не обрабатываются куски, заключенные
     в двойные квадратные скобки (например, "лошадь [[Пржевальского]]").
     """
     def process(part):
         if not re.match(markup_re, part):
-            return inflect_phrase(part, forms)
+            return func(part, *args, **kwargs)
         return part[2: -2]
 
     parts = [process(s) for s in re.split(markup_re, phrase)]
@@ -48,16 +50,17 @@ def _process_unmarked_phrase(phrase, forms, *args, **kwargs):
 def inflect(phrase, forms):
     if not phrase or not forms:
         return phrase
-    return _process_unmarked_phrase(force_unicode(phrase), force_unicode(forms))
+    return _process_unmarked_phrase(force_unicode(phrase), inflect_phrase, get_forms_tuple(forms))
 
 
 @register.filter
 def inflect_marked(phrase, forms):
     if not phrase or not forms:
         return phrase
-    return _process_marked_phrase(force_unicode(phrase), force_unicode(forms))
+    return _process_marked_phrase(force_unicode(phrase), inflect_phrase, get_forms_tuple(forms))
 
 @register.filter
-def plural(*args, **kwargs):
-    #TODO: реализовать или не реализовать?  :)
-    raise NotImplementedError
+def plural(phrase, number):
+    if not phrase or not number:
+        return phrase
+    return _process_unmarked_phrase(force_unicode(phrase), pluralize_phrase, number)

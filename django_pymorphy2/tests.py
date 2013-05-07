@@ -53,6 +53,9 @@ class InflectTagTest(PymorphyDjangoTestCase):
         self.assertInflected('бутявка', 'мн,тв', 'бутявками')
         self.assertInflected('Петрович', 'дт,отч', 'Петровичу')
 
+        self.assertInflected('Петров', 'пр,имя,ед', 'Петре')
+        self.assertInflected('Петрович', 'пр,отч,мн', 'Петровичах')
+
     def test_susliki(self):
         self.assertInflected('сусликов', 'тв', 'сусликами')
 
