@@ -1,5 +1,8 @@
 
 Модуль для интеграции pymorphy2 с django - по мотивам https://github.com/kmike/pymorphy
+Теги совместимы с оными из pymorphy. Можно просто заменить pymorphy на django_pymorphy2 в INSTALLED_APPS - в шаблонах ничего менять не нужно.
+Но не все граммемы из `документации <http://pymorphy.readthedocs.org/en/latest/ref/gram_info_ru.html>`_ обрабатываются в данный момент.
+И не факт, что будут обрабатываться в будущем.
 
 Author: Vlasov Artem <root@proscript.ru>
 License: MIT
@@ -40,7 +43,7 @@ License: MIT
 * Петров -> 'имя,мн,пр' -> Петрах
 * Петров -> 'ед,пр' -> Петрове
 * Петров -> 'мн,пр' -> Петровых
-* Петров -> 'ед,им' -> Пётр
+* Петров -> 'ед,имя' -> Пётр
 
 но
 
