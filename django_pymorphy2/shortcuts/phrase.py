@@ -7,7 +7,7 @@ from django_pymorphy2.shortcuts import tokenizers
 __all__ = ['process_phrase']
 
 
-def process_phrase(phrase, func, *args, **kwargs):
+def process_phrase(phrase, func, forms, *args, **kwargs):
     """
     Обрабатывает фразу по словам с помощью переданной функции
     """
@@ -18,7 +18,7 @@ def process_phrase(phrase, func, *args, **kwargs):
             if tokenizers.GROUPING_SPACE_REGEX.match(word):
                 result.append(word)
                 continue
-            result.append(func(word, *args, **kwargs))
+            result.append(func(word, forms, *args, **kwargs))
     except Exception as e:
         """
         Не уверен, как поступить правильно

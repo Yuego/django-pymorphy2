@@ -6,7 +6,7 @@ from django import template
 from django.utils.translation import ugettext_lazy as _
 
 from six import PY3
-from .templatetags.pymorphy_tags import inflect, plural, inflect_marked
+from .templatetags.pymorphy_tags import inflect, plural, inflect_marked, inflect_collocation
 
 class PymorphyDjangoTestCase(TestCase):
     def _msg(self, fmt, w1, w2):
@@ -87,6 +87,34 @@ class InflectTagTest(PymorphyDjangoTestCase):
                              'лошади Пржевальского и красному коню Кузьмы Петрова-Водкина')
 
 
+class InflectCollocationTest(PymorphyDjangoTestCase):
+
+    def assertInflected(self, phrase, form, result):
+        inflected_word = inflect_collocation(phrase, form)
+        err_msg = self._msg("%s != %s" , inflected_word, result)
+        self.assertEqual(inflected_word, result, err_msg)
+
+    def test_one_word(self):
+        self.assertInflected('Москва', 'пр', 'Москве')
+        self.assertInflected('бутявка', 'мн,тв', 'бутявками')
+        self.assertInflected('Петрович', 'дт,отч', 'Петровичу')
+
+        # Т. к. мы берём в работу только слова в Именительном падеже,
+        # вместо имени Петр (Петров - родительный падеж) обрабатывается фамилия Петров
+        # соответственно форма 'имя' здесь не учитывается
+        # см. аналогичный тест выше в InflectTagTest
+        self.assertInflected('Петров', 'пр,имя,ед', 'Петрове')
+        # Но для именительного всё работает как надо
+        self.assertInflected('Петры', 'пр,имя,ед', 'Петре')
+        self.assertInflected('Петрович', 'пр,отч,мн', 'Петровичах')
+
+    def test_not_nomn_forms(self):
+        self.assertInflected('Отдыха', 'им', 'Отдыха')
+        self.assertInflected('дров', 'дт', 'дров')
+
+    def test_collocation(self):
+        self.assertInflected('База отдыха', 'тв', 'Базой отдыха')
+        self.assertInflected('куча дров', 'рд', 'кучи дров')
 
 
 class PluralTagTest(PymorphyDjangoTestCase):

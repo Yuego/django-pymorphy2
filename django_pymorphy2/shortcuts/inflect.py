@@ -31,8 +31,25 @@ def inflect_word(word, forms, specifying_forms=None):
 
     return word
 
+def inflect_word_from_nomn(word, forms, *args, **kwargs):
+    parsed = morph.parse(word)
 
-def inflect_phrase(phrase, forms):
+    for p in parsed:
+        if p.tag.POS in DONT_INFLECT_FORMS:
+            return word
+        else:
+            # Нам необходима определенная словоформа. Остальные пропускаем
+
+            if 'nomn' not in p.tag:
+                continue
+
+            parsed_word = p.inflect(forms)
+            if parsed_word is not None:
+                return restore_word_case(parsed_word.word, word)
+
+    return word
+
+def inflect_phrase(phrase, forms, *args, **kwargs):
     """
     Склоняет фразу в переданную форму пословно
 
@@ -45,4 +62,7 @@ def inflect_phrase(phrase, forms):
         второй элемент кортежа указывать не обязательно
 
     """
-    return process_phrase(phrase, inflect_word, *forms)
+    return process_phrase(phrase, inflect_word, forms, *args, **kwargs)
+
+def inflect_collocation_phrase(phrase, forms, *args, **kwargs):
+    return process_phrase(phrase, inflect_word_from_nomn, forms, *args, **kwargs)
