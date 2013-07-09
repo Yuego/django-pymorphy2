@@ -43,8 +43,8 @@ def inflect_word_from_nomn(word, forms, *args, **kwargs):
             return word
         else:
             # Нам необходима определенная словоформа. Остальные пропускаем
-            if forms in p.tag:
-                return p.word
+            if (forms in p.tag and (p.normal_form == p.word or 'NOUN' not in p.tag)):
+                return restore_word_case(p.word, word)
 
             if 'nomn' not in p.tag:
                 continue

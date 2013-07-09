@@ -114,12 +114,21 @@ class InflectCollocationTest(PymorphyDjangoTestCase):
 
     def test_collocation(self):
         self.assertInflected('База отдыха', 'тв', 'Базой отдыха')
+        self.assertInflected('База отдыха', 'рд', 'Базы отдыха')
         self.assertInflected('куча дров', 'рд', 'кучи дров')
 
         self.assertInflected('зимняя рыбалка', 'вн', 'зимнюю рыбалку')
         self.assertInflected('корпоративный отдых', 'вн', 'корпоративный отдых')
         self.assertInflected('экологические туры', 'вн', 'экологические туры')
         self.assertInflected('семейный отдых', 'вн', 'семейный отдых')
+
+        self.assertInflected('Сигизмунд Петрович', 'вн', 'Сигизмунда Петровича')
+        self.assertInflected('Летящий на параплане', 'пр', 'Летящем на параплане')
+        self.assertInflected('Летящий на параплане', 'тв', 'Летящим на параплане')
+
+        self.assertInflected('Пакет с пряниками', 'рд', 'Пакета с пряниками')
+
+        self.assertInflected('деревня Самосделкино', 'вн', 'деревню Самосделкино')
 
 
 
