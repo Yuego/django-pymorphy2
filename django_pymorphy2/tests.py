@@ -116,6 +116,12 @@ class InflectCollocationTest(PymorphyDjangoTestCase):
         self.assertInflected('База отдыха', 'тв', 'Базой отдыха')
         self.assertInflected('куча дров', 'рд', 'кучи дров')
 
+        self.assertInflected('зимняя рыбалка', 'вн', 'зимнюю рыбалку')
+        self.assertInflected('корпоративный отдых', 'вн', 'корпоративный отдых')
+        self.assertInflected('экологические туры', 'вн', 'экологические туры')
+        self.assertInflected('семейный отдых', 'вн', 'семейный отдых')
+
+
 
 class PluralTagTest(PymorphyDjangoTestCase):
     def assertPlural(self, phrase, amount, result):
