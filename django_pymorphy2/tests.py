@@ -96,6 +96,7 @@ class InflectCollocationTest(PymorphyDjangoTestCase):
 
     def test_one_word(self):
         self.assertInflected('Москва', 'пр', 'Москве')
+        self.assertInflected('охота', 'вн', 'охоту')
         self.assertInflected('бутявка', 'мн,тв', 'бутявками')
         self.assertInflected('Петрович', 'дт,отч', 'Петровичу')
 

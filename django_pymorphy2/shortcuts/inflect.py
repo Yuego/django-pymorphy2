@@ -39,9 +39,7 @@ def inflect_word_from_nomn(word, forms, *args, **kwargs):
 
     forms_cache = []
     for p in parsed:
-        if p.tag.POS in DONT_INFLECT_FORMS:
-            return word
-        else:
+        if p.tag.POS not in DONT_INFLECT_FORMS:
             # Нам необходима определенная словоформа. Остальные пропускаем
             if (forms in p.tag and (p.normal_form == p.word or 'NOUN' not in p.tag)):
                 return restore_word_case(p.word, word)
