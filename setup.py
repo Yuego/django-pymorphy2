@@ -23,7 +23,7 @@ setup(
     license='MIT license',
     requires=[
         'django (>=1.3)',
-        'pymorphy2 (>=0.3.4)',
+        'pymorphy2 (>=0.7)',
         'pymorphy2_dicts',
         'six',
     ],
@@ -43,7 +43,7 @@ setup(
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
         'Framework :: Django',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Scientific/Engineering :: Information Analysis',

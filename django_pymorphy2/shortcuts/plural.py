@@ -3,7 +3,7 @@ from __future__ import unicode_literals, absolute_import
 
 import six
 
-from pymorphy2.shapes import restore_word_case
+from pymorphy2.shapes import restore_capitalization
 
 from django_pymorphy2.config import morph
 from .phrase import process_phrase
@@ -21,7 +21,7 @@ def pluralize_word(word, number):
     if isinstance(parsed, list):
         pluralized = parsed[0].make_agree_with_number(number)
         if pluralized is not None:
-            return restore_word_case(pluralized.word, word)
+            return restore_capitalization(pluralized.word, word)
 
     return word
 

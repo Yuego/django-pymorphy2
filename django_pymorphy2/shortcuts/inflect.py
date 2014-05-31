@@ -3,7 +3,7 @@ from __future__ import unicode_literals, absolute_import
 
 from django.template import TemplateSyntaxError
 
-from pymorphy2.shapes import restore_word_case
+from pymorphy2.shapes import restore_capitalization
 
 from django_pymorphy2.config import morph
 from django_pymorphy2.constants import DONT_INFLECT_FORMS
@@ -29,7 +29,7 @@ def inflect_word(word, forms, specifying_forms=None):
 
             parsed_word = p.inflect(forms)
             if parsed_word is not None:
-                return restore_word_case(parsed_word.word, word)
+                return restore_capitalization(parsed_word.word, word)
 
     return word
 
@@ -42,7 +42,7 @@ def inflect_word_from_nomn(word, forms, *args, **kwargs):
         if p.tag.POS not in DONT_INFLECT_FORMS:
             # Нам необходима определенная словоформа. Остальные пропускаем
             if (forms in p.tag and (p.normal_form == p.word or 'NOUN' not in p.tag)):
-                return restore_word_case(p.word, word)
+                return restore_capitalization(p.word, word)
 
             if 'nomn' not in p.tag:
                 continue
@@ -54,7 +54,7 @@ def inflect_word_from_nomn(word, forms, *args, **kwargs):
         parsed_word = p.inflect(forms)
 
         if parsed_word is not None:
-            return restore_word_case(parsed_word.word, word)
+            return restore_capitalization(parsed_word.word, word)
 
     return word
 
