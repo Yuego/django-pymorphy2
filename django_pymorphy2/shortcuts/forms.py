@@ -1,7 +1,7 @@
 #coding: utf-8
 from __future__ import unicode_literals, absolute_import
 
-from django.utils.text import force_unicode
+from django.utils.text import force_text
 from django_pymorphy2.constants import INFLECT_FORMS, SPECIFYING_FORMS
 
 __all__ = ['get_forms_tuple']
@@ -16,7 +16,7 @@ def get_forms_tuple(*args):
     forms = list()
     specs = list()
     for arg in args:
-        for key in force_unicode(arg).split(','):
+        for key in force_text(arg).split(','):
             if key in INFLECT_FORMS:
                 forms.append(INFLECT_FORMS[key])
             elif key in SPECIFYING_FORMS:

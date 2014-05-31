@@ -9,7 +9,7 @@ from __future__ import unicode_literals, absolute_import
 import re
 
 from django import template
-from django.utils.text import force_unicode
+from django.utils.text import force_text
 
 from django_pymorphy2.config import MARKER_OPEN, MARKER_CLOSE
 from django_pymorphy2.shortcuts.forms import get_forms_tuple
@@ -50,25 +50,25 @@ def _process_unmarked_phrase(phrase, func, *args, **kwargs):
 def inflect(phrase, forms):
     if not phrase or not forms:
         return phrase
-    return _process_unmarked_phrase(force_unicode(phrase), inflect_phrase, *get_forms_tuple(forms))
+    return _process_unmarked_phrase(force_text(phrase), inflect_phrase, *get_forms_tuple(forms))
 
 
 @register.filter
 def inflect_marked(phrase, forms):
     if not phrase or not forms:
         return phrase
-    return _process_marked_phrase(force_unicode(phrase), inflect_phrase, *get_forms_tuple(forms))
+    return _process_marked_phrase(force_text(phrase), inflect_phrase, *get_forms_tuple(forms))
 
 
 @register.filter
 def inflect_collocation(phrase, forms):
     if not phrase or not forms:
         return phrase
-    return _process_unmarked_phrase(force_unicode(phrase), inflect_collocation_phrase, *get_forms_tuple(forms))
+    return _process_unmarked_phrase(force_text(phrase), inflect_collocation_phrase, *get_forms_tuple(forms))
 
 
 @register.filter
 def plural(phrase, number):
     if not phrase or not number:
         return phrase
-    return _process_unmarked_phrase(force_unicode(phrase), pluralize_phrase, number)
+    return _process_unmarked_phrase(force_text(phrase), pluralize_phrase, number)
