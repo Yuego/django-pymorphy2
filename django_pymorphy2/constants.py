@@ -49,7 +49,7 @@ RU_GENDERS = {
     'ср': 'neut',
 }
 INFLECT_FORMS = dict()
-map(INFLECT_FORMS.update, (RU_NUMBERS, RU_CASES, RU_GENDERS))
+list(map(INFLECT_FORMS.update, (RU_NUMBERS, RU_CASES, RU_GENDERS)))
 
 DONT_INFLECT_FORMS = ('COMP', 'ADVB', 'PRED', 'PREP', 'CONJ', 'PRCL', 'INTJ')
 
@@ -60,4 +60,4 @@ RU_FIO = {
 }
 
 SPECIFYING_FORMS = dict()
-map(SPECIFYING_FORMS.update, (RU_FIO,))
+list(map(SPECIFYING_FORMS.update, (RU_FIO,)))

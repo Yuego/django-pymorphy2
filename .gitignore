@@ -8,4 +8,5 @@ Thumbs.db
 .rope*
 PYSMELLTAGS
 reports
-
+.tox
+__pycache__
